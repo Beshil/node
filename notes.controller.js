@@ -31,17 +31,23 @@ async function printNotes() {
 
   console.log("Here is the list of notes:");
   notes.forEach((note) => {
-    console.log((note.id), (note.title));
+    console.log(note.id, note.title);
   });
 }
 
 async function removeNote(id) {
   const notes = await getNotes();
   console.log(`Note under id '${id}' deleted`);
-  saveNotes(notes.filter((note) => note.id !== id));
+  await saveNotes(notes.filter((note) => note.id !== id));
+}
+async function editNoteTitle(id, newTitle) {
+  const notes = await getNotes();
+  console.log(`Note under id '${id}' edited`);
+  await saveNotes(notes.map((n) => n));
 }
 module.exports = {
   addNote,
-  printNotes,
+  getNotes,
   removeNote,
+  editNoteTitle,
 };
