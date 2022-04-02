@@ -42,8 +42,15 @@ async function removeNote(id) {
 }
 async function editNoteTitle(id, newTitle) {
   const notes = await getNotes();
-  console.log(`Note under id '${id}' edited`);
-  await saveNotes(notes.map((n) => n));
+
+  await saveNotes(
+    notes.map((n) => {
+      if (n.id === id) {
+        n.title = newTitle;
+      }
+      return n;
+    })
+  );
 }
 module.exports = {
   addNote,
